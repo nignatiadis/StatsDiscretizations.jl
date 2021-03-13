@@ -12,13 +12,24 @@ using Infinity
 using Infinity.Utils
 
 @reexport using IntervalSets
+
+using Requires
+using Setfield
 @reexport using StatsBase
 
 include("intervals.jl")
 include("distributions_intervals.jl")
 include("discretizers.jl")
+include("discretized_function.jl")
+include("default_discretizers.jl")
+
+function __init__()
+    @require JuMP="4076af6c-e467-56ae-b986-b466b2749572" include("discretized_function_jump.jl")
+end
+
 
 export RealLineDiscretizer,
-       BoundedIntervalDiscretizer
+       BoundedIntervalDiscretizer,
+       DiscretizedFunction
 
 end

@@ -1,4 +1,5 @@
 using Infinity
+using StatsDiscretizations
 
 ℝ_discr = RealLineDiscretizer{:open,:closed}(-5:0.1:5)
 @test ℝ_discr(2) == Interval{:open,:closed}(1.9,2)

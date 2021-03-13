@@ -53,8 +53,6 @@ function Base.getindex(discr::BoundedIntervalDiscretizer{L,R,T}, i::Int) where {
     end
 end
 
-
-
 function _discretize(sorted_intervals::AbstractRealLineDiscretizer, x)
     n = length(sorted_intervals)
     left, right = 1, n
@@ -62,7 +60,7 @@ function _discretize(sorted_intervals::AbstractRealLineDiscretizer, x)
         middle = div(left + right, 2)
         middle_interval = sorted_intervals[middle]
         if x ⊆ middle_interval
-            return middle_interval
+            return (middle, middle_interval)
         elseif _isless(x, rightendpoint(middle_interval))
             right = middle - 1
         else
@@ -74,8 +72,30 @@ end
 
 
 function (discr::AbstractRealLineDiscretizer)(x)
-    _discretize(discr, x)
+    last(_discretize(discr, x))
 end
+
+function Base.findfirst(discr, x)
+    first(_discretize(discr, x))
+end
+
+
+function IntervalSets.closedendpoints(discr::Union{BoundedIntervalDiscretizer, RealLineDiscretizer})
+    IntervalSets.closedendpoints(discr[1])
+end
+function IntervalSets.isleftclosed(d::Union{BoundedIntervalDiscretizer, RealLineDiscretizer})
+    closedendpoints(d)[1]
+end
+function IntervalSets.isrightclosed(d::Union{BoundedIntervalDiscretizer, RealLineDiscretizer})
+    closedendpoints(d)[2]
+end
+function IntervalSets.isleftopen(d::Union{BoundedIntervalDiscretizer, RealLineDiscretizer})
+    !isleftclosed(d)
+end
+function IntervalSets.isrightopen(d::Union{BoundedIntervalDiscretizer, RealLineDiscretizer})
+    !isrightclosed(d)
+end
+
 
 
 
