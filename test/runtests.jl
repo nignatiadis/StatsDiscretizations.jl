@@ -1,7 +1,9 @@
 using StatsDiscretizations
 using Test
+using LinearAlgebra
 using Infinity
 using Infinity.Utils
+using SplitApplyCombine
 
 @testset "Distributions Intervals" begin
     include("test_distributions_intervals.jl")

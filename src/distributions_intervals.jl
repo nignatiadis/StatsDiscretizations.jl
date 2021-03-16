@@ -34,7 +34,7 @@ end
 
 
 
-function pdf(dbn, int::OpenClosed)
+function pdf(dbn::ContinuousUnivariateDistribution, int::OpenClosed)
     a, b = endpoints(int)
     isposinf(b) ? _ccdf(dbn, a) : isneginf(a) ? _cdf(dbn, b) : _cdf(dbn, b) - _cdf(dbn, a)
 end

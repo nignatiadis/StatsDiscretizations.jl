@@ -1,7 +1,7 @@
 name = "StatsDiscretizations"
 uuid = "1d0cfea5-fabc-4e25-85a8-945fa8abc3c9"
 authors = ["Nikos Ignatiadis <nikos.ignatiadis01@gmail.com> and contributors"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 Dictionaries = "85a47980-9c8c-11e8-2b9f-f7ca1fa99fb4"

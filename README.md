@@ -1,7 +1,6 @@
 # StatsDiscretizations
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://nignatiadis.github.io/StatsDiscretizations.jl/stable)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://nignatiadis.github.io/StatsDiscretizations.jl/dev)
+
 [![Build Status](https://github.com/nignatiadis/StatsDiscretizations.jl/workflows/CI/badge.svg)](https://github.com/nignatiadis/StatsDiscretizations.jl/actions)
 [![Coverage](https://codecov.io/gh/nignatiadis/StatsDiscretizations.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/nignatiadis/StatsDiscretizations.jl)
 
@@ -10,7 +9,7 @@ can be simplified by giving first class support to Intervals from the [IntervalS
 
 
 ## Discretizers
-Let ℐ the set of all intervals on ℝ. The key idea is that a `discretizer` acts as a function from ℝ ∪ ℐ ↦ ℐ with the following properties:
+Let ℐ the set of all intervals on ℝ. The key idea is that a `discretizer` acts as a function from ( subset of ) ℝ ∪ ℐ ↦ ℐ with the following properties:
 * Callable as `discretizer(z)` and broadcastable `discretizer.(zs)`.
 * Returns intervals: `typeof(discretizer(z)) <: AbstractInterval`.
 * Idempotent: `discretizer(discretizer(z)) == discretizer(z)`.
@@ -23,10 +22,13 @@ This is a discretizer that partitions the whole real line into intervals with br
 ```julia
 julia> using StatsDiscretizations
 julia> discr = RealLineDiscretizer{:open,:closed}(-2:0.1:2)
+
 julia> discr(-5)
 -Inf..-2.0 (open–closed)
+
 julia> discr(0.05)
 0.0..0.1 (open–closed)
+
 julia> discr(0.00)
 -0.1..0.0 (open–closed)
 ```

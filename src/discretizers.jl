@@ -1,4 +1,7 @@
-abstract type AbstractRealLineDiscretizer{T <: AbstractInterval}  <: AbstractVector{T} end
+abstract type AbstractRealLineDiscretizer{T}  <: AbstractVector{T} end
+
+unwrap(x) = x
+wrap(x, val) = val
 
 function Base.size(discr::AbstractRealLineDiscretizer)
     (Base.length(discr), )
@@ -72,11 +75,14 @@ end
 
 
 function (discr::AbstractRealLineDiscretizer)(x)
-    last(_discretize(discr, x))
+    x_val = unwrap(x)
+    x_val_discr = last(_discretize(discr, x_val))
+    wrap(x, x_val_discr)
 end
 
 function Base.findfirst(discr, x)
-    first(_discretize(discr, x))
+    x_val = unwrap(x)
+    first(_discretize(discr, x_val))
 end
 
 
@@ -96,6 +102,24 @@ function IntervalSets.isrightopen(d::Union{BoundedIntervalDiscretizer, RealLineD
     !isrightclosed(d)
 end
 
+struct FiniteSupportDiscretizer{T, G <:AbstractVector{T}} <: AbstractRealLineDiscretizer{T}
+    grid::G
+end
+
+function Base.length(discr::FiniteSupportDiscretizer)
+    length(discr.grid)
+end
+
+
+function Base.getindex(discr::FiniteSupportDiscretizer, i::Int)
+    Base.getindex(discr.grid, i)
+end
+
+function _discretize(discr::FiniteSupportDiscretizer, x)
+    idx = findfirst( ==(x), discr)
+    isnothing(idx) && throw("x not in the supported grid")
+    (idx, discr[idx])
+end
 
 
 

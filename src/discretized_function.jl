@@ -12,6 +12,11 @@ function DiscretizedFunction(discr::AbstractRealLineDiscretizer, f)
     DiscretizedFunction(discr, f.(discr))
 end
 
+function DiscretizedFunction(discr::AbstractRealLineDiscretizer, flift, f)
+    dictionary = Dictionary( flift.(discr),  f.(discr))
+    DiscretizedFunction(;discretizer=discr, dictionary = dictionary)
+end
+
 function (f::DiscretizedFunction)(x)
     f.dictionary[f.discretizer(x)]
 end

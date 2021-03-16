@@ -36,3 +36,20 @@ discr_ℝ_xs = ℝ_discr.(xs)
 
 @test ℝ_discr(-10) == Interval{:open,:closed}(-∞,-5.0)
 @test ℝ_discr(10) == Interval{:open,:closed}(5.0, ∞)
+
+
+finite_discretizer = FiniteSupportDiscretizer(-4:1:4)
+
+@inferred finite_discretizer(2)
+@test_throws String finite_discretizer(10)
+
+double_fun = DiscretizedFunction(finite_discretizer, x->2x)
+
+@test double_fun(4) == 8
+@test double_fun(3) == 6
+
+
+
+findfirst( ==(2), finite_discretizer)::Int
+
+searchsorted(finite_discretizer, 2)

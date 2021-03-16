@@ -14,7 +14,6 @@ using Infinity.Utils
 @reexport using IntervalSets
 
 using Requires
-using Setfield
 @reexport using StatsBase
 
 include("intervals.jl")
@@ -30,6 +29,7 @@ end
 
 export RealLineDiscretizer,
        BoundedIntervalDiscretizer,
-       DiscretizedFunction
+       DiscretizedFunction,
+       FiniteSupportDiscretizer
 
 end

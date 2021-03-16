@@ -4,10 +4,10 @@ function samplehull_discretizer(zs::AbstractVector{<:AbstractFloat},
     grid = binedges(algo, zs)
     if closed === :right
         grid[1] = prevfloat(grid[1])
-        return RealLineDiscretizer{:open,:closed}(grid)
+        return BoundedIntervalDiscretizer{:open,:closed}(grid)
     elseif closed === :left
         grid[end] = nextfloat(grid[end])
-        return RealLineDiscretizer{:closed,:open}(grid)
+        return BoundedIntervalDiscretizer{:closed,:open}(grid)
     else
         throw(ArgumentError("closed can be :right or :left"))
     end
