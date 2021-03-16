@@ -20,13 +20,12 @@ f = DiscretizedFunction(discr, mean)
 #@test f(-100) == -Inf
 #@test f.(Zs) == mean.(discr.(Zs))
 
-
 using JuMP
-using Hypatia
+using ECOS
 
 using SplitApplyCombine
 
-model = Model(Hypatia.Optimizer)
+model = Model(ECOS.Optimizer)
 
 f = StatsDiscretizations.add_discretized_function!(model, discr)
 
