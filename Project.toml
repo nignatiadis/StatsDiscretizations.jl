@@ -16,7 +16,7 @@ StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 [compat]
 Dictionaries = "0.3.8"
 Discretizers = "3.2"
-Distributions = "0.24"
+Distributions = "0.24, 0.25"
 Infinity = "0.2.3"
 IntervalSets = "0.5.2"
 Reexport = "1"
