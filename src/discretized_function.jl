@@ -1,26 +1,24 @@
-Base.@kwdef struct DiscretizedFunction{S<:AbstractRealLineDiscretizer, D<:AbstractDictionary, E<:AbstractDictionary}
+Base.@kwdef struct DiscretizedFunction{S<:AbstractRealLineDiscretizer, D<:AbstractDictionary, T, E<:AbstractDictionary}
     discretizer::S
     dictionary::D
+    default_value::T = zero(eltype(values(dictionary)))
     index_dictionary::E = Dictionary(keys(dictionary), Base.OneTo(length(dictionary)))
 end
 
-function DiscretizedFunction(discr::AbstractRealLineDiscretizer, vals::AbstractVector)
-    DiscretizedFunction(;discretizer=discr, dictionary = Dictionary(discr, vals))
-end
 
-function DiscretizedFunction(discr::AbstractRealLineDiscretizer, f)
-    DiscretizedFunction(discr, f.(discr))
-end
+Base.keys(dictfun::DiscretizedFunction) = Base.keys(dictfun.dictionary)
 
-function DiscretizedFunction(discr::AbstractRealLineDiscretizer, flift, f)
-    dictionary = Dictionary( flift.(discr),  f.(discr))
-    DiscretizedFunction(;discretizer=discr, dictionary = dictionary)
-end
+Base.values(dictfun::DiscretizedFunction) = Base.values(dictfun.dictionary)
 
-function (f::DiscretizedFunction)(x)
-    f.dictionary[f.discretizer(x)]
-end
 
-function (f::DiscretizedFunction)(x, default_value)
+function dictfun(discr::AbstractRealLineDiscretizer, vals::AbstractVector, flift=identity)
+    DiscretizedFunction(;discretizer=discr, dictionary=Dictionary(flift.(discr), vals))
+end 
+
+function dictfun(discr::AbstractRealLineDiscretizer, f, flift=identity)
+    dictfun(discr, f.(flift.(discr)), flift)
+end 
+
+function (f::DiscretizedFunction)(x, default_value=f.default_value)
     get(f.dictionary, f.discretizer(x), default_value)
 end

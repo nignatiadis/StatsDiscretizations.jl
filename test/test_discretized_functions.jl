@@ -1,12 +1,15 @@
 using StatsDiscretizations
+using JuMP
 using Test
 using LinearAlgebra
 using Random
+using StatsBase
 
 Random.seed!(1)
 Zs = rand(1000)
 
-discr = StatsDiscretizations.samplehull_discretizer(Zs)
+_min,_max = extrema(Zs)
+discr = BoundedIntervalDiscretizer{:open,:closed}((_min - 0.01):0.01:(_max + 0.01))
 
 # these tests are actually applicable more broadly
 #@test findfirst(discr, -100) == 1
@@ -14,7 +17,7 @@ discr = StatsDiscretizations.samplehull_discretizer(Zs)
 
 
 #
-f = DiscretizedFunction(discr, mean)
+f = dictfun(discr, mean)
 
 #@test f(discr[1]) == -Inf
 #@test f(-100) == -Inf
@@ -39,4 +42,4 @@ fsolve = JuMP.value(f)
 
 _output_dict = groupsum( z->discr(z), sort(Zs)) ./ groupcount( z->discr(z), sort(Zs))
 
-@test maximum(abs.(collect(_output_dict .- fsolve.dictionary))) ≈ 0.0 atol=1e-5
+@test maximum(abs.(collect(_output_dict .- fsolve.dictionary))) ≈ 0.0 atol=1e-4

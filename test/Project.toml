@@ -1,8 +1,11 @@
 [deps]
+Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
 ECOS = "e2685f51-7e38-5353-a97d-a921fd2c8199"
 Infinity = "a303e19e-6eb4-11e9-3b09-cd9505f79100"
+IntervalSets = "8197267c-284f-5f27-9208-e0e47529a953"
 JuMP = "4076af6c-e467-56ae-b986-b466b2749572"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 SplitApplyCombine = "03a91e81-4c3e-53e1-a0a4-9c0c8f19dd66"
+StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

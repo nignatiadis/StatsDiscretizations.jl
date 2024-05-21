@@ -1,15 +1,13 @@
 name = "StatsDiscretizations"
 uuid = "1d0cfea5-fabc-4e25-85a8-945fa8abc3c9"
 authors = ["Nikos Ignatiadis <nikos.ignatiadis01@gmail.com> and contributors"]
-version = "0.1.4"
+version = "0.2.0"
 
 [deps]
 Dictionaries = "85a47980-9c8c-11e8-2b9f-f7ca1fa99fb4"
-Discretizers = "6e83dbb3-75ca-525b-8ae2-3751f0dd50b4"
 Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
-Infinity = "a303e19e-6eb4-11e9-3b09-cd9505f79100"
 IntervalSets = "8197267c-284f-5f27-9208-e0e47529a953"
-Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
+LogExpFunctions = "2ab3a3ac-af41-5b50-aa03-7779005ae688"
 StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 
 [weakdeps]
@@ -19,15 +17,12 @@ JuMP = "4076af6c-e467-56ae-b986-b466b2749572"
 JuMPExt = "JuMP"
 
 [compat]
-Dictionaries = "0.3.12"
-Discretizers = "3.2"
+Dictionaries = "0.4"
 Distributions = "0.25"
-Infinity = "0.2"
 IntervalSets = "0.7"
 JuMP = "1.12"
-Reexport = "1"
-StatsBase = "0.33, 0.34"
 julia = "1.9"
+StatsBase = "0.34"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

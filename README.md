@@ -37,6 +37,3 @@ julia> discr(0.00)
 
 
 
-
-## Warning
- The package commits ''light'' type piracy, e.g., by implementing `Distributions.pdf(dbn, int::AbstractInterval)`.

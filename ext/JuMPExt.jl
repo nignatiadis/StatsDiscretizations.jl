@@ -25,13 +25,12 @@ function (f::DiscretizedFunctionVariable)(z)
 end
 
 function JuMP.value(f::DiscretizedFunctionVariable)
-    DiscretizedFunction(f.discretizer, JuMP.value.(f.finite_param))
+    dictfun(f.discretizer, JuMP.value.(f.finite_param))
 end
 
 
 function JuMP.value(f::DiscretizedFunctionVariable, flift)
-    DiscretizedFunction(discretizer = f.discretizer,
-        dictionary = Dictionary(flift.(f.discretizer), JuMP.value.(f.finite_param)))
+    dictfun(f.discretizer, JuMP.value.(f.finite_param), flift)
 end
 
 
